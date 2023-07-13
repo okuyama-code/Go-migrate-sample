@@ -1,0 +1,14 @@
+参照URL  https://omkz.net/golang-migrate/
+
+
+docker-compose build --no-cache
+
+docker-compose up -d
+
+docker exec -it service bash
+
+ go install -tags mysql github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+ migrate create -ext sql -dir db/migrations -seq create_users
+
+ migrate -path db/migrations -database "mysql://docker:docker@tcp(mysql:3306)/blog?multiStatements=true" down 1
